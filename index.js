@@ -55,8 +55,13 @@ const sendNotifications = async (testFlight, actualFlight) => {
     const testFlight = await testForFlights(browser, process.env.TEST_URL);
     console.log('noon test result', testFlight);
 
-    if (testFlight) {
+    if (actualTest) {
         console.log('sending email and text message!')
+        await sendNotifications(testFlight, actualTest);
+    }
+
+    if (process.env.TEST_RUN === 'true' && testFlight) {
+        console.log('sending TEST email and text message!')
         await sendNotifications(testFlight, actualTest);
     }
 
