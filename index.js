@@ -27,6 +27,7 @@ const sendNotifications = async (testFlight, actualFlight) => {
       pass: process.env.EMAIL_PASSWORD, // generated app password
     },
   });
+  console.log('sending from email to emails', process.env.FROM_EMAIL, process.env.TO_EMAIL)
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
