@@ -43,7 +43,8 @@ const sendNotifications = async (testFlight, actualFlight) => {
 
 (async () => {
     
-    const browser = await puppeteer.launch();
+    // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#running-puppeteer-on-heroku
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 
     // search for flight after 5pm
     const actualTest = await testForFlights(browser, process.env.ACTUAL_URL);
