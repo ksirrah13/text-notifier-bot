@@ -43,7 +43,7 @@ const sendNotifications = async (testFlight, actualFlight) => {
 
 (async () => {
     
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch();
 
     // search for flight after 5pm
     const actualTest = await testForFlights(browser, process.env.ACTUAL_URL);
