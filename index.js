@@ -27,7 +27,6 @@ const sendNotifications = async (testFlight, actualFlight) => {
       pass: process.env.EMAIL_PASSWORD, // generated app password
     },
   });
-  console.log('sending from email to emails', process.env.FROM_EMAIL, process.env.TO_EMAIL)
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
@@ -38,8 +37,7 @@ const sendNotifications = async (testFlight, actualFlight) => {
     Actual? ${actualFlight ? 'YES! GO GO!' : 'No'}`, // plain text body
   });
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  console.log("Message sent!");
 }
 
 (async () => {
@@ -49,18 +47,18 @@ const sendNotifications = async (testFlight, actualFlight) => {
 
     // search for flight after 5pm
     const actualTest = await testForFlights(browser, process.env.ACTUAL_URL);
-    console.log('5pm test result', actualTest);
+    console.log('5pm actual result', actualTest);
     
     // search for flight around noon (test)
     const testFlight = await testForFlights(browser, process.env.TEST_URL);
-    console.log('noon test result', testFlight);
+    console.log('noon TEST result', testFlight);
 
     if (actualTest) {
         console.log('sending email and text message!')
         await sendNotifications(testFlight, actualTest);
     }
 
-    if (process.env.TEST_RUN === 'true' && testFlight) {
+    if (process.env.TEST_RUN === 'true') {
         console.log('sending TEST email and text message!')
         await sendNotifications(testFlight, actualTest);
     }
