@@ -100,7 +100,7 @@ const sendTennisNotifications = async (recipientEmailList, tennisUrl) => {
 (async () => {
     
     // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#running-puppeteer-on-heroku
-    const browser = await puppeteer.launch({ headless: true, slowMo: 100, args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
     // search for flight after 5pm
     const USERS = process.env.USERS.split(',');
