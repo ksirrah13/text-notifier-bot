@@ -104,14 +104,14 @@ const sendTennisNotifications = async (recipientEmailList, tennisUrl) => {
 
     // search for flight after 5pm
     const USERS = process.env.USERS.split(',');
-    await Promise.all(USERS.map(async USER => {
+    for (const USER of USERS) {
       console.log('starting checks for user', USER);
 
       const eventIds = process.env[`${USER}_EVENT_IDS`].split(',');
       const classIdslist = process.env[`${USER}_CLASS_IDS`].split(';').map(group => group.split(','));
       const recpipients = process.env[`${USER}_TO_EMAIL`];
 
-      await Promise.all(eventIds.map(async (eventId, ix) => {
+      for (const [ix, eventId] of eventIds.entries()) {
         const classIds = classIdslist[ix];
         if (!classIds || classIds.length === 0) {
           return;
@@ -123,12 +123,12 @@ const sendTennisNotifications = async (recipientEmailList, tennisUrl) => {
         if (foundMatch) {
           sendTennisNotifications(recpipients, url);
         }
-      }))
-    }))
+      }
+    }
 
     if (process.env.TEST_RUN === 'true') {
       console.log('SENDING TEST MESSAGE');
-      await sendTennisNotifications(process.env.TEST_RECIPIENTS, 'TEST RUN');
+      sendTennisNotifications(process.env.TEST_RECIPIENTS, 'TEST RUN');
     }
       
 
