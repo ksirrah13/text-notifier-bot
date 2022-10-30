@@ -125,6 +125,11 @@ const sendTennisNotifications = async (recipientEmailList, tennisUrl) => {
         }
       }))
     }))
+
+    if (process.env.TEST_RUN === 'true') {
+      console.log('SENDING TEST MESSAGE');
+      await sendTennisNotifications(process.env.TEST_RECIPIENTS, 'TEST RUN');
+    }
       
 
     await browser.close();
