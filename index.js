@@ -126,7 +126,8 @@ const sendTennisNotifications = async (recipientEmailList, tennisUrl) => {
       }
     }
 
-    if (process.env.TEST_RUN === 'true') {
+    // only send test notifications on Tues/Fri, 0 = SUN, 2 = Tues, 6 = SAT
+    if (process.env.TEST_RUN === 'true' && [2, 5].includes(new Date().getDay())) {
       console.log('SENDING TEST MESSAGE');
       sendTennisNotifications(process.env.TEST_RECIPIENTS, 'TEST RUN');
     }
